@@ -1,0 +1,20 @@
+CROSS_HOST="x86_64-pc-linux-gnu"
+ORIG_PN="alsa-lib"
+inherit cross
+
+
+HOMEPAGE="http://alsa-project.org/"
+SRC_URI="ftp://ftp.alsa-project.org/pub/${ORIG_PN#*-}/${ORIG_PN}-${PV}.tar.bz2"
+
+DIFF_EXCLUDES="doxygen.cfg *_symbols_list.c"
+
+CYGCONF_ARGS="--disable-python"
+
+KEEP_LA_FILES="none"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	rm -fr ${D}${CROSS_PREFIX}/{bin,lib/alsa-lib,share/alsa}/
+}
